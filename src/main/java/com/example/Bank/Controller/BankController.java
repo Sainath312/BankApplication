@@ -29,8 +29,15 @@ public class BankController {
     public ResponseEntity<String> withDraw(@RequestBody DepositOrWithdrawMoney sub){
         return methods.withDrawMoney(sub);
     }
-    @PutMapping("/transferFunds/{id}/{id}")
-    public ResponseEntity<String> transferFunds(@PathVariable long s_ID, @PathVariable long d_ID, @RequestBody Transfer amount){
-        return methods.transferFunds(s_ID,d_ID,amount);
+    @PutMapping("/transferFunds")
+    public ResponseEntity<String> transferFunds(@RequestBody Transfer transfer){
+        return methods.transferFunds(transfer);
     }
+//    @GetMapping("/transactionHistory/{id}")
+//    public ResponseEntity<List<TransactionEntity>> getTransactionsByAccountId(GetTransaction accountId) {
+//        return methods.getTransactions(accountId);
+//
+//    }
+
+
 }

@@ -4,27 +4,36 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.stereotype.Component;
 
-import java.text.DateFormat;
-import java.text.DecimalFormat;
+import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @Entity
 @Table(name = "Transactions")
-
+@NoArgsConstructor
+@AllArgsConstructor
+@Component
 public class TransactionEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long TransactionId;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="accountID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "account_Id")
     private AccountEntity Account_ID;
 
     private String TransactionType;
 
-    private DecimalFormat Amount;
+    private double Amount;
 
-    private DateFormat TransactionDateFormat;
+    private LocalDate transactionDate ;
 
+    public TransactionEntity(AccountEntity account_ID, String transactionType, double amount ) {
+        Account_ID = account_ID;
+        TransactionType = transactionType;
+        Amount = amount;
+
+    }
 }
