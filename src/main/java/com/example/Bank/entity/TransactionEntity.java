@@ -1,4 +1,4 @@
-package com.example.Bank.Entity;
+package com.example.Bank.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Data
 @Entity
@@ -18,22 +17,13 @@ import java.util.List;
 public class TransactionEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long TransactionId;
+    private long transactionId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinColumn(name = "account_Id")
-    private AccountEntity Account_ID;
+    private AccountEntity account_ID;
 
-    private String TransactionType;
-
-    private double Amount;
-
+    private String transactionType;
+    private double amount;
     private LocalDate transactionDate ;
-
-    public TransactionEntity(AccountEntity account_ID, String transactionType, double amount ) {
-        Account_ID = account_ID;
-        TransactionType = transactionType;
-        Amount = amount;
-
-    }
 }
