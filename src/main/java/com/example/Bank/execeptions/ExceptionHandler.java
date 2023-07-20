@@ -11,6 +11,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 @ControllerAdvice
 public class ExceptionHandler extends ResponseEntityExceptionHandler {
+
     @org.springframework.web.bind.annotation.ExceptionHandler({UserNotFound.class})
     public ResponseEntity<Object> handleUserNotFound(Exception exception, WebRequest res) {
         ExceptionModel ex = new ExceptionModel(HttpStatus.NOT_FOUND.toString(), exception.getMessage(), res.getDescription(false));
@@ -23,4 +24,7 @@ public class ExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<Object>(ex1,HttpStatus.BAD_REQUEST);
 
     }
+
+
+
 }

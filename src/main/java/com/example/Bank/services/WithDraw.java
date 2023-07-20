@@ -15,6 +15,8 @@ import java.util.Optional;
 public class WithDraw {
     @Autowired
     AccountRepo accountRepo;
+    @Autowired
+    TransferMoney transferMoney;
     public ResponseEntity<String> withDrawMoney(DepositOrWithdrawMoney details) {
         Optional<AccountEntity> user = accountRepo.findById(details.getAccount_ID());
         if (user.isPresent()) {
@@ -28,7 +30,7 @@ public class WithDraw {
                     double amount = account.getBalance() - details.getBalance();
                     account.setBalance(amount);
                     accountRepo.save(account);
-                    new TransferMoney().debit(account, details.getBalance());
+                    transferMoney.debit(account, details.getBalance());
                     return ResponseEntity.status(HttpStatus.FOUND).header("Content-Type", "application/json").body("{\"message\": \"Amount " + details.getBalance() + " WithDraw Successfully From Account ID " + details.getAccount_ID() + "\"}");
                 }
             }

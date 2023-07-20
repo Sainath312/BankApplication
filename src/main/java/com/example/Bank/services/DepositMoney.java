@@ -15,6 +15,8 @@ import java.util.Optional;
 public class DepositMoney {
     @Autowired
     AccountRepo accountRepo;
+    @Autowired
+    TransferMoney transferMoney;
     public ResponseEntity<String> depositMoney(DepositOrWithdrawMoney detail) {
         Optional<AccountEntity> user = accountRepo.findById(detail.getAccount_ID());
         if (user.isPresent()) {
@@ -23,7 +25,7 @@ public class DepositMoney {
                 double amount = account.getBalance() + detail.getBalance();
                 account.setBalance(amount);
                 accountRepo.save(account);
-                new TransferMoney().credit(account,detail.getBalance());
+                transferMoney.credit(account,detail.getBalance());
                 return ResponseEntity.status(HttpStatus.OK).header("Content-Type", "application/json").
                         body("{\"message\": \"Amount " + detail.getBalance() + "/- Is Deposit Successfully \"}");
             }

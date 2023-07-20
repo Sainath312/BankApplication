@@ -3,6 +3,7 @@ package com.example.Bank.services;
 import com.example.Bank.entity.AccountEntity;
 import com.example.Bank.entity.UserEntity;
 import com.example.Bank.execeptions.UserNotFound;
+import com.example.Bank.model.UserCredential;
 import com.example.Bank.repository.AccountRepo;
 import com.example.Bank.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +20,9 @@ public class CreateAccount {
 
     @Autowired
     AccountRepo accountRepo;
-    public ResponseEntity<String> createAccount(UserEntity user) {
-
-
-        UserEntity userEntity = userRepo.save(user);
+    public ResponseEntity<String> createAccount(UserCredential user) {
+        UserEntity us = new UserEntity(user.getUserName(),user.getUserPassword(),user.getEmailID(),user.getPhoneNumber());
+        UserEntity userEntity = userRepo.save(us);
         Optional<UserEntity> user1 = userRepo.findById(userEntity.getUserID());
         if (user1.isPresent()) {
             AccountEntity accountEntity = new AccountEntity();

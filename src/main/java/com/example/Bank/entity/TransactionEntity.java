@@ -26,4 +26,5 @@ public class TransactionEntity {
     private String transactionType;
     private double amount;
     private LocalDate transactionDate ;
+
 }

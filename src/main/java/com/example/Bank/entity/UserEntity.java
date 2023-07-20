@@ -20,4 +20,11 @@ public class UserEntity {
     private String userPassword;
     private String emailID;
     private String phoneNumber;
+
+    public UserEntity(String userName, String userPassword, String emailID, String phoneNumber) {
+        this.userName = userName;
+        this.userPassword = userPassword;
+        this.emailID = emailID;
+        this.phoneNumber = phoneNumber;
+    }
 }
